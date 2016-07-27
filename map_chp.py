@@ -11,7 +11,6 @@ from urllib2 import urlopen
 from xml.etree import ElementTree
 from xml_mapper import Mapper
 
-
 class CHP_Mapper(Mapper):
 	""" Maps out CHP incidents reported.
 
@@ -94,6 +93,7 @@ def main():
 
 	# 4326 is the code for WGS 1984
 	mapper.make_xy('H:/Code/chp_mapper/chp_events.lyr', 'chp_output.csv', 'lon', 'lat', 4326)
+
 
 if __name__ == '__main__':
 	main()

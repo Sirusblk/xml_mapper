@@ -7,6 +7,7 @@
 # ------------------------------------------------------------------------------
 import arcpy
 import csv
+from abc import abstractmethod
 from arcpy import env
 from urllib2 import urlopen
 from xml.etree import ElementTree
@@ -33,79 +34,11 @@ class Mapper(object):
 		return text
 
 
-	def read_chp_xml(self, xml_url):
-		""" Reads California Highway Patrol incident xml from xml_url, storing 
-			in a list.
+	@abstractmethod
+	def read_xml(self):
+		""" This is an empty function the children must implement
 		"""
-		connection = urlopen(xml_url)
-		in_xml = connection.read()
-		state = ElementTree.fromstring(in_xml)
-		records = []
-		record = []
-
-		# Specific to CHP
-		# TODO(David) Nested for loops are bad. Change this to be more
-		# efficient, possibly use generators.
-		for center in state:
-			rec_center = center.attrib['ID']
-
-			for dispatch in center:
-				rec_dispatch = dispatch.attrib['ID']
-
-				for log in dispatch:
-					record = [rec_center, rec_dispatch]
-
-					record.append(log.attrib['ID'])
-
-					log_time = self.remove_quotes(log.find('LogTime').text)
-					log_type = self.remove_quotes(log.find('LogType').text)
-					location = self.remove_quotes(log.find('Location').text)
-					loc_desc = self.remove_quotes(log.find('LocationDesc').text)
-					area = self.remove_quotes(log.find('Area').text)
-
-					record.append(log_time)
-					record.append(log_type)
-					record.append(location)
-					record.append(loc_desc)
-					record.append(area)
-
-					latlon = log.find('LATLON').text
-
-					# [1:-1] Removes quotes
-					(lat, lon) = latlon[1:-1].split(':')
-					lat = str(lat[:2]) + '.' + str(lat[2:])
-					lon = '-' + str(lon[:3]) + '.' + str(lon[3:])
-
-					record.append(lat)
-					record.append(lon)
-			
-					records.append(record)
-
-		self.records = records
-
-
-	def read_edison_xml(self, xml_url):
-		""" Reads Southern California Edison outages xml from xml_url, storing 
-			in a list.
-		"""
-		connection = urlopen(xml_url)
-		in_xml = connection.read()
-		root = ElementTree.fromstring(in_xml)
-		records = []
-		record = []
-
-		# Specific to Edison
-		incidents = root.find('AOC_INCIDENTS')
-
-		for incident in incidents:
-			record = []
-
-			for node in incident:
-				record.append(node.text)
-
-			records.append(record)
-
-		self.records = records
+		pass
 
 
 	def write_csv(self, out_file_name, header):
@@ -139,40 +72,7 @@ class Mapper(object):
 
 
 def main():
-
-
-
-	# Now for Edison
-	mapper.read_edison_xml('https://www.sce.com/nrc/AOC/AOC_Location_Report.xml')
-	header = [
-				'Incident_ID',
-				'Incident_Type',
-				'Fac_Job_Status_CD',
-				'OAN_NO',
-				'Outage_Start',
-				'Version',
-				'Last_Change',
-				'Est_CLU',
-				'Memo_Cause_CD',
-				'Memo_Cause_CD_Desc',
-				'Crew_Status',
-				'Crew_Status_CD_Desc',
-				'Result_CD',
-				'Result_CD_Desc',
-				'Nbr_Cust_Affected',
-				'Zip_Code',
-				'County_Name',
-				'City_Name',
-				'District_No',
-				'Sector_No',
-				'ERT_CD',
-				'Centroid_X',
-				'Centroid_Y'
-			]
-
-	mapper.write_csv('edison_output.csv', header)
-
-	mapper.make_xy('H:/Code/chp_mapper/edison_events.lyr', 'edison_output.csv', 'Centroid_X', 'Centroid_Y', 4326)
+	pass
 
 
 if __name__ == '__main__':
