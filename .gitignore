@@ -1,3 +1,4 @@
 *.lyr
 *.pyc
 *.csv
+schema.ini
