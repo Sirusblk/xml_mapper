@@ -1,5 +1,5 @@
 #! /usr/env/python
-# mapchp.py
+# xml_mapper.py
 #
 # Author:		David McLaren
 # Description:	Maps out events for California Highway Patrol as well as
