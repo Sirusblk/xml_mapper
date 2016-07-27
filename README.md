@@ -14,4 +14,4 @@ You can extend this usage to a cron job to run on your server fetching and mappi
 
 ## License
 
-This repository uses the MIT License
+This repository uses the [MIT License](https://github.com/Sirusblk/xml_mapper/blob/master/LICENSE)
