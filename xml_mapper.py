@@ -9,7 +9,7 @@ import arcpy
 import csv
 from arcpy import env
 from urllib2 import urlopen
-from xml.etree import ElementTree as ET
+from xml.etree import ElementTree
 
 class Mapper(object):
 	""" Maps out CHP events to a point feature class.
@@ -39,7 +39,7 @@ class Mapper(object):
 		"""
 		connection = urlopen(xml_url)
 		in_xml = connection.read()
-		state = ET.fromstring(in_xml)
+		state = ElementTree.fromstring(in_xml)
 		records = []
 		record = []
 
@@ -90,7 +90,7 @@ class Mapper(object):
 		"""
 		connection = urlopen(xml_url)
 		in_xml = connection.read()
-		root = ET.fromstring(in_xml)
+		root = ElementTree.fromstring(in_xml)
 		records = []
 		record = []
 
@@ -139,25 +139,7 @@ class Mapper(object):
 
 
 def main():
-	mapper = Mapper()
-	mapper.read_chp_xml('http://media.chp.ca.gov/sa_xml/sa.xml')
-	header = [
-				'Center',
-				'Dispatch',
-				'Log',
-				'LogTime',
-				'LogType',
-				'Location',
-				'LocationDesc',
-				'Area',
-				'Lat',
-				'Lon'
-			]
 
-	mapper.write_csv('chp_output.csv', header)
-
-	# 4326 is the code for WGS 1984
-	mapper.make_xy('H:/Code/chp_mapper/chp_events.lyr', 'chp_output.csv', 'lon', 'lat' 4326)
 
 
 	# Now for Edison
