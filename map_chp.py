@@ -92,7 +92,7 @@ def main():
 	mapper.write_csv('chp_output.csv', header)
 
 	# 4326 is the code for WGS 1984
-	mapper.make_xy('H:/Code/chp_mapper/chp_events.lyr', 'chp_output.csv', 'lon', 'lat', 4326)
+	mapper.make_xy('H:/Code/xml_mapper/chp_events.lyr', 'chp_output.csv', 'lon', 'lat', 4326)
 
 
 if __name__ == '__main__':

@@ -78,7 +78,7 @@ def main():
 	mapper.write_csv('edison_output.csv', header)
 
 	# 4326 is the code for WGS 1984
-	mapper.make_xy('H:/Code/chp_mapper/edison_events.lyr', 'edison_output.csv', 'Centroid_X', 'Centroid_Y', 4326)
+	mapper.make_xy('H:/Code/xml_mapper/edison_events.lyr', 'edison_output.csv', 'Centroid_X', 'Centroid_Y', 4326)
 
 
 if __name__ == '__main__':
