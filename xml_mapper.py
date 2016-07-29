@@ -2,8 +2,7 @@
 # xml_mapper.py
 #
 # Author:		David McLaren
-# Description:	Maps out events for California Highway Patrol as well as
-#				Southern California Edison Outages.
+# Description:	Base Mapper Class that maps out events from xml files.
 # ------------------------------------------------------------------------------
 import arcpy
 import csv
@@ -16,16 +15,22 @@ class Mapper(object):
 	""" Maps out CHP events to a point feature class.
 
 	Attributes:
-		records: Stores records of CHP incidents.
+		records: Stores records of inncident locations.
 	"""
 	def __init__(self):
-		""" Inits Mapper with output file path and dictionary of data"""
+		""" Inits Mapper with empty list for records.
+		"""
 		self.records = []
 
 
 	def remove_quotes(self, text):
-		""" Removes quotes from text by shearing off the first and last element
-		    of a string.
+		""" Removes quotes from text.
+
+		Removes quotes from text by shearing off the first and last element
+		of a string.
+
+		Args:
+			text:			Input text.
 		"""
 		if text != None:
 			if text[0:1] is '"':
@@ -42,7 +47,14 @@ class Mapper(object):
 
 
 	def write_csv(self, out_file_name, header):
-		""" Exports records to .csv file.
+		""" Exports list of records to .csv file.
+
+		Exports Mapper records to .csv file under the given output file name.
+		First line contains the header list of field names.
+
+		Args:
+			out_file_name:	Output file name to save as.
+			header:			List of field names, in order.
 		"""
 
 		with open(out_file_name, 'wb') as outf:
@@ -52,7 +64,22 @@ class Mapper(object):
 	
 
 	def make_xy(self, save_location, in_table, x_coords, y_coords, sp_ref):
-		""" Using ArcPy create a point shapefile.
+		""" Uses ArcPy to create a point shapefile.
+
+		Geocodes input .csv file given the file, the save location, the x and y
+		coordinate fields, and lastly the spacial reference of the coordinates
+		(very important). Really just a wrapper for ArcPy calls to create the
+		data and then save it to a file.
+
+		Args:
+			save_location:	Actual file path name to save to. Ends in .lyr
+			in_table:		Tabular input .csv file. (Other formats supported)
+			x_coords:		Field name for X-Coordinates
+			y_coords:		Field name for Y-Coordinates
+			sp_ref:			Spacial Reference by name or code.
+
+		Returns:
+			Nothing is returned, .lyr file is created.
 		"""
 		try:
 			# Assign Variables
@@ -68,6 +95,7 @@ class Mapper(object):
 			arcpy.SaveToLayerFile_management(out_layer, save_location)
 
 		except:
+			# Any errors, push those out
 			print(arcpy.GetMessages())
 
 
