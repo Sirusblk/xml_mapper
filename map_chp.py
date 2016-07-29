@@ -12,12 +12,15 @@ from xml.etree import ElementTree
 from xml_mapper import Mapper
 
 class CHP_Mapper(Mapper):
-	""" Maps out CHP incidents reported.
+	""" Maps out CHP incidents reported. Inherits from Mapper class
+		(from xml_mapper.py)
 
 	Attributes:
-		Blah blah blah...
+		records: Stores records of CHP incidents. (Inherited from Mapper class)
 	"""
 	def __init__(self):
+		"""Inits CHP_Mapper, letting the parent class take care of it.
+		"""
 		super(CHP_Mapper, self).__init__()
 
 
@@ -91,7 +94,7 @@ def main():
 
 	mapper.write_csv('chp_output.csv', header)
 
-	# 4326 is the code for WGS 1984
+	# 4326 is the code for WGS 1984, polar coordinates (-180, 180) & (90, -90)
 	mapper.make_xy('H:/Code/xml_mapper/chp_events.lyr', 'chp_output.csv', 'lon', 'lat', 4326)
 
 
