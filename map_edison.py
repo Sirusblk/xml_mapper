@@ -15,7 +15,7 @@ class Edison_Mapper(Mapper):
 	""" Maps out Southern California Edison outages.
 
 	Attributes:
-		Blah blah blah...
+		records: Stores records of SCE outages. (Inherited from Mapper class)
 	"""
 	def __init__(self):
 		super(Edison_Mapper, self).__init__()
