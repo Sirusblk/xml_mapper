@@ -15,7 +15,8 @@ class Edison_Mapper(Mapper):
 	""" Maps out Southern California Edison outages.
 
 	Attributes:
-		records: Stores records of SCE outages. (Inherited from Mapper class)
+		url:		URL for xml file.
+		records:	Stores records of SCE outages. (Inherited from Mapper class)
 	"""
 	def __init__(self, url):
 		super(Edison_Mapper, self).__init__('Edison Outages', url)

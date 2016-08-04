@@ -18,7 +18,12 @@ class Mapper(object):
 		records: Stores records of inncident locations.
 	"""
 	def __init__(self, layer_name, url):
-		""" Inits Mapper with empty list for records.
+		""" Inits Mapper with a layer name, an xml url, and an empty list for 
+			records.
+		
+		Args:
+			layer_name:		Layer Name for resulting .lyr file
+			url:			URL for xml file.
 		"""
 		self.layer_name = layer_name
 		self.url = url

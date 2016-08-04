@@ -16,7 +16,8 @@ class CHP_Mapper(Mapper):
 		(from xml_mapper.py)
 
 	Attributes:
-		records: Stores records of CHP incidents. (Inherited from Mapper class)
+		url:		URL for xml file.
+		records: 	Stores records of CHP incidents. (Inherited from Mapper class)
 	"""
 	def __init__(self, url):
 		"""Inits CHP_Mapper, letting the parent class take care of it.
