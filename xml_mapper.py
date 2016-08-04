@@ -17,9 +17,10 @@ class Mapper(object):
 	Attributes:
 		records: Stores records of inncident locations.
 	"""
-	def __init__(self):
+	def __init__(self, url):
 		""" Inits Mapper with empty list for records.
 		"""
+		self.url = url
 		self.records = []
 
 

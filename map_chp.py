@@ -18,17 +18,17 @@ class CHP_Mapper(Mapper):
 	Attributes:
 		records: Stores records of CHP incidents. (Inherited from Mapper class)
 	"""
-	def __init__(self):
+	def __init__(self, url):
 		"""Inits CHP_Mapper, letting the parent class take care of it.
 		"""
-		super(CHP_Mapper, self).__init__()
+		super(CHP_Mapper, self).__init__(url)
 
 
-	def read_xml(self, xml_url):
-		""" Reads California Highway Patrol incident xml from xml_url, storing 
+	def read_xml(self):
+		""" Reads California Highway Patrol incident xml from self.url, storing 
 			in a list.
 		"""
-		connection = urlopen(xml_url)
+		connection = urlopen(self.url)
 		in_xml = connection.read()
 		state = ElementTree.fromstring(in_xml)
 		records = []
@@ -75,8 +75,8 @@ class CHP_Mapper(Mapper):
 
 
 def main():
-	mapper = CHP_Mapper()
-	mapper.read_xml('http://media.chp.ca.gov/sa_xml/sa.xml')
+	mapper = CHP_Mapper('http://media.chp.ca.gov/sa_xml/sa.xml')
+	mapper.read_xml()
 
 	header = [
 				'Center',

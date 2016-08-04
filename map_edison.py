@@ -17,15 +17,15 @@ class Edison_Mapper(Mapper):
 	Attributes:
 		records: Stores records of SCE outages. (Inherited from Mapper class)
 	"""
-	def __init__(self):
-		super(Edison_Mapper, self).__init__()
+	def __init__(self, url):
+		super(Edison_Mapper, self).__init__(url)
 
 
-	def read_xml(self, xml_url):
-		""" Reads Southern California Edison outages xml from xml_url, storing 
+	def read_xml(self):
+		""" Reads Southern California Edison outages xml from self.url, storing 
 			records in a list.
 		"""
-		connection = urlopen(xml_url)
+		connection = urlopen(self.url)
 		in_xml = connection.read()
 		root = ElementTree.fromstring(in_xml)
 		records = []
@@ -46,8 +46,8 @@ class Edison_Mapper(Mapper):
 
 
 def main():
-	mapper = Edison_Mapper()
-	mapper.read_xml('https://www.sce.com/nrc/AOC/AOC_Location_Report.xml')
+	mapper = Edison_Mapper('https://www.sce.com/nrc/AOC/AOC_Location_Report.xml')
+	mapper.read_xml()
 
 	header = [
 				'Incident_ID',
