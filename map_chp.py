@@ -48,11 +48,11 @@ class CHP_Mapper(Mapper):
 
 					record.append(log.attrib['ID'])
 
-					log_time = self.remove_quotes(log.find('LogTime').text)
-					log_type = self.remove_quotes(log.find('LogType').text)
-					location = self.remove_quotes(log.find('Location').text)
-					loc_desc = self.remove_quotes(log.find('LocationDesc').text)
-					area = self.remove_quotes(log.find('Area').text)
+					log_time = log.find('LogTime').text.strip('"')
+					log_type = log.find('LogType').text.strip('"')
+					location = log.find('Location').text.strip('"')
+					loc_desc = log.find('LocationDesc').text.strip('"')
+					area = log.find('Area').text.strip('"')
 
 					record.append(log_time)
 					record.append(log_type)
@@ -60,10 +60,9 @@ class CHP_Mapper(Mapper):
 					record.append(loc_desc)
 					record.append(area)
 
-					latlon = log.find('LATLON').text
+					latlon = log.find('LATLON').text.strip('"')
 
-					# [1:-1] Removes quotes
-					(lat, lon) = latlon[1:-1].split(':')
+					(lat, lon) = latlon.split(':')
 					lat = str(lat[:2]) + '.' + str(lat[2:])
 					lon = '-' + str(lon[:3]) + '.' + str(lon[3:])
 

@@ -23,22 +23,6 @@ class Mapper(object):
 		self.records = []
 
 
-	def remove_quotes(self, text):
-		""" Removes quotes from text.
-
-		Removes quotes from text by shearing off the first and last element
-		of a string.
-
-		Args:
-			text:			Input text.
-		"""
-		if text != None:
-			if text[0:1] is '"':
-				return text[1:-1]
-
-		return text
-
-
 	@abstractmethod
 	def read_xml(self):
 		""" This is an empty function the children must implement
