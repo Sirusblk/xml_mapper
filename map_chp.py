@@ -21,7 +21,7 @@ class CHP_Mapper(Mapper):
 	def __init__(self, url):
 		"""Inits CHP_Mapper, letting the parent class take care of it.
 		"""
-		super(CHP_Mapper, self).__init__(url)
+		super(CHP_Mapper, self).__init__('CHP Incidents', url)
 
 
 	def read_xml(self):

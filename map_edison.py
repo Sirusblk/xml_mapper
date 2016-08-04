@@ -18,7 +18,7 @@ class Edison_Mapper(Mapper):
 		records: Stores records of SCE outages. (Inherited from Mapper class)
 	"""
 	def __init__(self, url):
-		super(Edison_Mapper, self).__init__(url)
+		super(Edison_Mapper, self).__init__('Edison Outages', url)
 
 
 	def read_xml(self):

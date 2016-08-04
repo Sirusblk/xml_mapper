@@ -17,9 +17,10 @@ class Mapper(object):
 	Attributes:
 		records: Stores records of inncident locations.
 	"""
-	def __init__(self, url):
+	def __init__(self, layer_name, url):
 		""" Inits Mapper with empty list for records.
 		"""
+		self.layer_name = layer_name
 		self.url = url
 		self.records = []
 
@@ -68,7 +69,7 @@ class Mapper(object):
 		"""
 		try:
 			# Assign Variables
-			out_layer = 'events'
+			out_layer = self.layer_name
 
 			# Create XY Layer (this will not save it)
 			arcpy.MakeXYEventLayer_management(in_table, x_coords, y_coords, out_layer, sp_ref)
