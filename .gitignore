@@ -1,4 +1,5 @@
 *.lyr
 *.pyc
 *.csv
+.DS_Store
 schema.ini
